@@ -13,7 +13,7 @@
 | 意图预测、受创预估、击杀提示、可选组合、可填筹码高亮 | 已实现 |
 | 视觉重构：多色体系、纹理卡面、实体筹码、分段血条 | 已实现 |
 | 1280×720 / 1440×900 / 1920×1080 / 390×844 布局 | 已验证 |
-| Tauri 2 桌面外壳与原生 JSON 存档 | 已实现，Rust 侧编译通过 |
+| Tauri 2 桌面外壳与原生 JSON 存档 | 已实现，窗口实机启动，存档对话未经走查 |
 | 浏览器宿主保持 IndexedDB，端到端测试未改动 | 已验证 |
 
 ### 规则与存档验证
@@ -57,7 +57,8 @@ Playwright 在 Chrome 与 Edge 上各 8 项全部通过（16/16，20.8s）。运
 
 ### 尚未验证
 
-- **桌面窗口未做人工验收**：`cargo check` 在 4 分 16 秒内成功（`Finished dev profile`，退出码 0），说明 Rust 外壳、权限清单与打包配置可以编译。尚未执行 `pnpm desktop:build` 产出安装包，也没有人工走查窗口与原生对话框；完整手动清单见 [桌面版构建与运行](desktop.md#验收建议)。
+- **桌面窗口已实机验证**：`cargo check` 4 分 16 秒通过；随后 `tauri dev` 编译出 `src-tauri/target/debug/number-spire.exe` 并成功启动，窗口标题为「数字尖塔 · Number Spire」，WebView2 已初始化，游戏主菜单正常渲染（见 `docs/screenshots/desktop-window.png`）。
+- **桌面存档与原生对话框未做端到端走查**：尚未执行 `pnpm desktop:build` 产出安装包，也没有手动点击过「导出 JSON / 导入 JSON」的原生对话框。手动清单见 [桌面版构建与运行](desktop.md#验收建议)。
 - Firefox 仍未执行：与 v0.2 相同，Playwright 的 Firefox 在启动阶段报并行配置错误（`mozglue` 从属程序集缺失），未进入游戏页面。
 
 ## 当前限制

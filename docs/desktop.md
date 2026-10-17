@@ -2,6 +2,8 @@
 
 《数字尖塔》同时交付浏览器版与桌面版。两者共用同一份 React 界面和纯 TypeScript 规则内核，只有**存储与文件对话框**这一层不同。
 
+![桌面窗口](screenshots/desktop-window.png)
+
 ## 结构
 
 ```
@@ -74,6 +76,28 @@ pnpm desktop:check    # cargo check：只做 Rust 侧类型检查，最快
 | 设置面板 | 提示「浏览器」 | 提示「桌面版」并显示存档目录 |
 
 判定方式为 `platform/desktop.ts` 的 `isDesktop()`：只有在 Tauri WebView 中存在 `__TAURI_INTERNALS__` 时才走桌面实现。因此 `pnpm dev` / `pnpm preview` / Playwright 全部继续使用 IndexedDB，现有端到端测试无需改动。
+
+## 常见问题
+
+### `EBUSY ... src-tauri\target\debug\deps\number_spire_lib.dll`
+
+`tauri dev` 会先启动 `pnpm dev`，而 Vite 默认监视整个项目根目录。Cargo 在 `src-tauri/target` 下生成并**锁定** DLL，Windows 上 `fs.watch` 打开这些文件会抛 `EBUSY`，Vite 随之退出，`tauri dev` 报 `beforeDevCommand terminated with a non-zero status code`。
+
+`vite.config.ts` 已把 Rust 构建目录排除在监视之外：
+
+```ts
+server: {
+  port: 5173,
+  strictPort: true,
+  watch: { ignored: ['**/src-tauri/**', '**/dist/**', '**/test-results/**'] },
+}
+```
+
+同一个原因也会影响端到端测试：如果 `cargo build` 与 `playwright test` 同时进行，开发服务器可能被拖垮，表现为 `net::ERR_CONNECTION_REFUSED`。跑 e2e 时不要同时做 Rust 全量编译。
+
+### 窗口打开后显示 `ERR_CONNECTION_REFUSED`
+
+开发版把 `devUrl`（`http://127.0.0.1:5173`）当作页面地址。直接双击 `src-tauri/target/debug/number-spire.exe` 时没有开发服务器，就会看到这个页面。请用 `pnpm desktop` 启动，或先 `pnpm dev` 再运行该 exe。正式安装包会把 `dist/` 打进二进制，不依赖开发服务器。
 
 ## 验收建议
 
