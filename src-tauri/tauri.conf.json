@@ -1,0 +1,52 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "NumberSpire",
+  "version": "0.3.0",
+  "identifier": "com.numberspire.game",
+  "build": {
+    "beforeDevCommand": "pnpm dev",
+    "devUrl": "http://127.0.0.1:5173",
+    "beforeBuildCommand": "pnpm build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "label": "main",
+        "title": "数字尖塔 · Number Spire",
+        "width": 1280,
+        "height": 820,
+        "minWidth": 1024,
+        "minHeight": 680,
+        "resizable": true,
+        "center": true,
+        "theme": "Dark",
+        "backgroundColor": "#07050E"
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; img-src 'self' data: blob:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' ipc: http://ipc.localhost; script-src 'self'"
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": ["nsis"],
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "copyright": "数字尖塔 · Number Spire",
+    "category": "Game",
+    "shortDescription": "用数字构造你的下一步",
+    "longDescription": "单人、回合制、卡牌构筑的数字肉鸽：产出数字、加工数字、填入攻防卡槽位。",
+    "windows": {
+      "nsis": {
+        "installMode": "currentUser",
+        "languages": ["SimpChinese", "English"]
+      }
+    }
+  }
+}

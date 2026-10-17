@@ -1,0 +1,165 @@
+/* ============================================================
+   数字尖塔 · Design tokens
+   A nocturnal arcane palette: indigo depths, amber gold, and one
+   saturated hue per card family so the board never reads as
+   monochrome.
+   ============================================================ */
+:root {
+  font-family: 'Segoe UI', 'Microsoft YaHei', 'PingFang SC', system-ui, sans-serif;
+  color: var(--text-1);
+  background: var(--ink-900);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  font-weight: 400;
+  color-scheme: dark;
+
+  /* ---- depths ---- */
+  --ink-900: #07050e;
+  --ink-850: #0b0818;
+  --ink-800: #100c20;
+  --ink-750: #16112b;
+  --ink-700: #1c1638;
+  --ink-600: #251d47;
+  --ink-500: #332858;
+  --ink-400: #4a3c72;
+
+  /* ---- text ---- */
+  --text-1: #f2eefb;
+  --text-2: #bdb4d6;
+  --text-3: #8d83ab;
+  --text-4: #675e85;
+
+  /* ---- structure ---- */
+  --line-1: rgba(255, 255, 255, 0.07);
+  --line-2: rgba(255, 255, 255, 0.14);
+  --line-3: rgba(255, 255, 255, 0.24);
+  --line-gold: rgba(255, 200, 87, 0.34);
+
+  /* ---- signature metals ---- */
+  --gold: #ffc857;
+  --gold-2: #ffe9a8;
+  --gold-deep: #a9762a;
+  --amber: #ff9d45;
+  --lime: #c6ff5e;
+  --lime-2: #e6ffab;
+  --lime-deep: #6f8f1f;
+
+  /* ---- card families ---- */
+  --attack: #ff6a5e;
+  --attack-2: #ffb3a3;
+  --attack-deep: #79181a;
+  --defense: #4cc9ff;
+  --defense-2: #b5e9ff;
+  --defense-deep: #0e3d5c;
+  --generator: #ffd166;
+  --generator-2: #fff0bd;
+  --generator-deep: #6d4a08;
+  --transform: #bb8cff;
+  --transform-2: #e3d0ff;
+  --transform-deep: #3f2477;
+  --utility: #45e6b4;
+  --utility-2: #b6ffe1;
+  --utility-deep: #0a4a3b;
+  --power: #ff83cb;
+  --power-2: #ffd0e9;
+  --power-deep: #641c47;
+
+  /* ---- vitals ---- */
+  --hp: #ff4968;
+  --hp-2: #ff8fa4;
+  --hp-deep: #5d0b21;
+  --block: #68c9ff;
+  --energy: #c6ff5e;
+  --enemy-hp: #ff5964;
+
+  /* ---- rarity ---- */
+  --rarity-common: #8f9bb8;
+  --rarity-uncommon: #63b8ff;
+  --rarity-rare: #ffc857;
+
+  /* ---- geometry ---- */
+  --r-sm: 6px;
+  --r-md: 10px;
+  --r-lg: 16px;
+  --r-xl: 22px;
+  --shadow-1: 0 2px 6px rgba(0, 0, 0, 0.45);
+  --shadow-2: 0 10px 24px rgba(0, 0, 0, 0.5);
+  --shadow-3: 0 22px 54px rgba(0, 0, 0, 0.62);
+  --inset-top: inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  --inset-deep: inset 0 -3px 0 rgba(0, 0, 0, 0.4);
+
+  --font-mono: 'JetBrains Mono', 'Cascadia Mono', Consolas, 'Courier New', monospace;
+  --font-display: 'Segoe UI Semibold', 'Segoe UI', 'Microsoft YaHei', sans-serif;
+}
+
+/* ============================================================
+   Reset & base
+   ============================================================ */
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  min-width: 360px;
+  background:
+    radial-gradient(1100px 620px at 12% -10%, rgba(122, 78, 214, 0.28), transparent 62%),
+    radial-gradient(900px 560px at 92% 0%, rgba(255, 168, 76, 0.13), transparent 58%),
+    radial-gradient(1200px 760px at 50% 118%, rgba(56, 210, 255, 0.09), transparent 60%),
+    linear-gradient(180deg, #0a0716 0%, #07050e 46%, #05030b 100%);
+  background-attachment: fixed;
+}
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.5;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.022) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.022) 1px, transparent 1px);
+  background-size: 46px 46px;
+  mask-image: radial-gradient(circle at 50% 30%, rgba(0, 0, 0, 0.85), transparent 78%);
+}
+button, input, select { font: inherit; }
+button { cursor: pointer; color: inherit; }
+button:disabled { cursor: not-allowed; opacity: 0.42; filter: saturate(0.5); }
+button, a, input, select { -webkit-tap-highlight-color: transparent; }
+button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+input, select {
+  color: var(--text-1);
+  background: linear-gradient(180deg, #191231, #120d24);
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-md);
+  padding: 9px 12px;
+  box-shadow: var(--inset-top);
+}
+input[type='range'] { padding: 0; accent-color: var(--gold); width: 100%; background: none; border: 0; }
+input[type='checkbox'] { accent-color: var(--gold); width: 18px; height: 18px; }
+::selection { background: var(--gold); color: #1a1206; }
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--ink-500), var(--ink-600));
+  border-radius: 6px;
+  border: 1px solid var(--line-1);
+}
+::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.28); }
+
+kbd {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  padding: 2px 5px;
+  border-radius: 4px;
+  border: 1px solid var(--line-2);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}
+[data-reduced-motion='true'] *,
+[data-reduced-motion='true'] *::before,
+[data-reduced-motion='true'] *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }

@@ -1,0 +1,13 @@
+node_modules/
+dist/
+test-results/
+playwright-report/
+.pnpm-store/
+.DS_Store
+*.local
+.preview.log
+
+# Tauri desktop host
+src-tauri/target/
+src-tauri/gen/
+src-tauri/.cargo/
